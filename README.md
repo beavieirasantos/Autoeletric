@@ -6,6 +6,6 @@ Site de uma loja virtual fictícia de veículos autopropelidos elétricos e aces
 
 **Tecnologias:** HTML5, CSS3, JavaScript e Bootstrap 5.3. Os dados ficam no `localStorage` do navegador, sem servidor.
 
-***Projeto acadêmico:*** Beatriz Vieira dos Santos e João Vitor Rodrigues Araújo.
-
 **Como usar:** abra o `index.html` no navegador. A documentação completa está na pasta `doc/`.
+
+***Projeto acadêmico:*** Beatriz Vieira dos Santos e João Vitor Rodrigues Araújo.
