@@ -9,11 +9,9 @@
   --erro: #c0392b;
   --raio: 16px;
 }
-
 html {
   scroll-behavior: smooth;
 }
-
 body {
   font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
   color: var(--tinta);
@@ -23,35 +21,27 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
-
 main {
   flex: 1;
 }
-
 img {
   max-width: 100%;
   height: auto;
 }
-
-h1,
-h2,
-h3 {
+h1, h2, h3 {
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.1;
 }
-
 a {
   color: inherit;
 }
-
 .container-principal {
   width: 100%;
   max-width: 1160px;
   margin: 0 auto;
   padding: 0 1.25rem;
 }
-
 .btn-lima {
   background: var(--lima);
   color: var(--tinta);
@@ -60,37 +50,30 @@ a {
   border-radius: 999px;
   transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
 }
-
-.btn-lima:hover,
-.btn-lima:focus-visible {
+.btn-lima:hover, .btn-lima:focus-visible {
   background: var(--tinta);
   border-color: var(--tinta);
   color: var(--lima);
   transform: translateY(-2px);
   box-shadow: 0 8px 18px rgba(15, 26, 20, 0.2);
 }
-
 .btn-lima:disabled {
   background: var(--linha);
   border-color: var(--linha);
   color: var(--suave);
 }
-
 .btn-outline-dark {
   border-radius: 999px;
   font-weight: 600;
 }
-
 .badge-lima {
   background: var(--lima);
   color: var(--tinta);
 }
-
 .cabecalho-topo {
   background: #fff;
   border-bottom: 1px solid var(--linha);
 }
-
 .cabecalho-topo .container-principal {
   display: flex;
   flex-direction: column;
@@ -99,7 +82,6 @@ a {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
-
 .marca {
   display: inline-flex;
   align-items: center;
@@ -109,31 +91,26 @@ a {
   font-weight: 800;
   letter-spacing: -0.03em;
 }
-
 .marca img {
   width: 38px;
   height: 38px;
 }
-
 .marca span em {
   font-style: normal;
   background: var(--lima);
   padding: 0 0.3rem;
   border-radius: 6px;
 }
-
 .slogan {
   color: var(--suave);
   font-size: 0.9rem;
 }
-
 .barra-menu {
   background: var(--tinta);
   position: sticky;
   top: 0;
   z-index: 1030;
 }
-
 .barra-menu .nav-link {
   color: #e6ece1;
   font-weight: 600;
@@ -142,7 +119,6 @@ a {
   position: relative;
   transition: color 0.15s;
 }
-
 .barra-menu .nav-link::after {
   content: "";
   position: absolute;
@@ -155,37 +131,30 @@ a {
   transform-origin: left;
   transition: transform 0.2s;
 }
-
 .barra-menu .nav-link:hover,
 .barra-menu .nav-link:focus,
 .barra-menu .nav-link.active {
   color: var(--lima);
 }
-
 .barra-menu .nav-link:hover::after,
 .barra-menu .nav-link.active::after {
   transform: scaleX(1);
 }
-
 .barra-menu .dropdown-menu {
   border: 0;
   border-radius: 12px;
 }
-
 .barra-menu .dropdown-item:hover {
   background: var(--lima);
 }
-
 .barra-menu .dropdown-toggle::after {
   display: none;
 }
-
 .link-carrinho {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
 }
-
 .contador-carrinho {
   background: var(--lima);
   color: var(--tinta);
@@ -198,47 +167,39 @@ a {
   place-items: center;
   padding: 0 0.3rem;
 }
-
 .contador-carrinho[hidden] {
   display: none;
 }
-
 .nav-ola {
   color: #e6ece1;
   margin-right: 0.5rem;
   font-size: 0.9rem;
 }
-
 .nav-sair {
   color: var(--lima);
   font-size: 0.9rem;
   font-weight: 700;
 }
-
 #navSessao {
   display: flex;
   align-items: center;
   padding: 0.5rem 0.9rem;
 }
-
 #navSessao:empty {
   display: none;
 }
-
 .menu-simples-barra {
   background: var(--tinta);
   position: sticky;
   top: 0;
   z-index: 100;
 }
-
 .menu-simples-barra .container-principal {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
 }
-
 #botaoMenu {
   background: none;
   border: 1px solid #3c4a41;
@@ -249,7 +210,6 @@ a {
   font: inherit;
   cursor: pointer;
 }
-
 #menuSimples {
   display: none;
   flex-direction: column;
@@ -258,11 +218,9 @@ a {
   padding: 0;
   width: 100%;
 }
-
 #menuSimples.aberto {
   display: flex;
 }
-
 #menuSimples a {
   display: block;
   color: #e6ece1;
@@ -271,22 +229,18 @@ a {
   font-weight: 600;
   transition: color 0.15s, background 0.15s;
 }
-
 #menuSimples a:hover,
 #menuSimples a.ativo {
   color: var(--lima);
 }
-
 .hero-secao {
   padding: 1.5rem 0 2.5rem;
 }
-
 .grade-destaques {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
 }
-
 .destaque-principal {
   position: relative;
   background: var(--lima);
@@ -296,21 +250,17 @@ a {
   flex-direction: column;
   order: 2;
 }
-
 .destaque-principal img {
   width: 100%;
   display: block;
 }
-
 .destaque-texto {
   padding: 1.5rem;
 }
-
 .destaque-texto h2 {
   font-size: clamp(2rem, 6vw, 3.4rem);
   margin: 0.6rem 0;
 }
-
 .etiqueta {
   display: inline-block;
   background: var(--tinta);
@@ -322,14 +272,12 @@ a {
   padding: 0.25rem 0.7rem;
   border-radius: 999px;
 }
-
 #destaquesLaterais {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.75rem;
   order: 1;
 }
-
 .destaque-lateral {
   position: relative;
   display: flex;
@@ -343,28 +291,23 @@ a {
   text-decoration: none;
   transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
-
 .destaque-lateral:hover {
   transform: translateY(-3px);
   border-color: var(--tinta);
   box-shadow: 0 10px 24px rgba(15, 26, 20, 0.12);
 }
-
 .destaque-lateral img {
   border-radius: 10px;
 }
-
 .destaque-lateral strong {
   display: block;
   font-size: 0.85rem;
   line-height: 1.2;
   margin-top: 0.4rem;
 }
-
 .destaque-lateral small {
   color: var(--suave);
 }
-
 .destaque-lateral .numero {
   position: absolute;
   top: 0.9rem;
@@ -379,7 +322,6 @@ a {
   font-weight: 800;
   font-size: 0.85rem;
 }
-
 .faixa-titulo {
   display: flex;
   align-items: baseline;
@@ -389,29 +331,23 @@ a {
   padding-bottom: 0.5rem;
   margin-bottom: 1.5rem;
 }
-
 .faixa-titulo h2 {
   font-size: 1.6rem;
   margin: 0;
 }
-
 .faixa-titulo a {
   font-weight: 700;
 }
-
 .secao {
   padding: 2.5rem 0;
 }
-
 .secao-escura {
   background: var(--tinta);
   color: #fff;
 }
-
 .secao-escura .faixa-titulo {
   border-color: var(--lima);
 }
-
 #listaNovidades {
   list-style: none;
   padding: 0;
@@ -419,7 +355,6 @@ a {
   display: grid;
   gap: 1rem;
 }
-
 #listaNovidades li {
   display: flex;
   gap: 1rem;
@@ -427,7 +362,6 @@ a {
   border-bottom: 1px solid #2c3b31;
   padding-bottom: 1rem;
 }
-
 #listaNovidades time {
   background: var(--lima);
   color: var(--tinta);
@@ -437,30 +371,25 @@ a {
   border-radius: 8px;
   white-space: nowrap;
 }
-
 #listaNovidades p {
   margin: 0.2rem 0 0;
   color: #b7c4ba;
 }
-
 .dupla {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
-
 .bloco {
   background: var(--papel);
   border: 1px solid var(--linha);
   border-radius: 20px;
   padding: 1.75rem;
 }
-
 .bloco h2 {
   font-size: 1.6rem;
   margin-bottom: 1rem;
 }
-
 .mapa-local {
   border-radius: 14px;
   background:
@@ -473,13 +402,11 @@ a {
   margin-top: 1rem;
   font-weight: 800;
 }
-
 #gradeCategorias {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
 }
-
 .categoria-card {
   display: flex;
   align-items: center;
@@ -491,52 +418,43 @@ a {
   text-decoration: none;
   transition: transform 0.2s, background 0.2s, border-color 0.2s;
 }
-
 .categoria-card:hover {
   background: var(--lima);
   border-color: var(--tinta);
   transform: translateY(-3px);
 }
-
 .categoria-card img {
   width: 96px;
   border-radius: 10px;
   flex-shrink: 0;
 }
-
 .categoria-card h3 {
   font-size: 1.05rem;
   margin: 0 0 0.25rem;
 }
-
 .categoria-card p {
   font-size: 0.85rem;
   margin: 0;
   color: var(--suave);
 }
-
 .categoria-card:hover p {
   color: var(--tinta);
 }
-
 .cartao-produto {
   border: 1px solid var(--linha);
   border-radius: var(--raio);
   overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
 }
-
 .cartao-produto:hover {
   transform: translateY(-4px);
   box-shadow: 0 14px 30px rgba(15, 26, 20, 0.12);
   border-color: var(--tinta);
 }
-
 .cartao-imagem {
   position: relative;
   display: block;
 }
-
 .cartao-categoria {
   color: var(--suave);
   text-transform: uppercase;
@@ -544,17 +462,14 @@ a {
   font-size: 0.7rem;
   font-weight: 700;
 }
-
 .preco {
   font-size: 1.35rem;
   font-weight: 800;
   margin-bottom: 0.75rem;
 }
-
 .preco-grande {
   font-size: 2.2rem;
 }
-
 .selo {
   position: absolute;
   top: 0.75rem;
@@ -564,34 +479,28 @@ a {
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
 }
-
 .selo-esgotado {
   background: var(--tinta);
   color: #fff;
 }
-
 .selo-poucos {
   background: #fff;
   color: var(--tinta);
   border: 1px solid var(--tinta);
 }
-
 .cabecalho-pagina {
   background: var(--lima);
   padding: 2.5rem 0;
 }
-
 .cabecalho-pagina h1 {
   font-size: clamp(2rem, 6vw, 3.4rem);
   margin: 0 0 0.5rem;
 }
-
 .cabecalho-pagina p {
   max-width: 60ch;
   margin: 0;
   font-size: 1.1rem;
 }
-
 .barra-filtros {
   background: var(--papel);
   border: 1px solid var(--linha);
@@ -599,38 +508,31 @@ a {
   padding: 1rem;
   margin: 1.5rem 0;
 }
-
 .detalhe-imagem {
   border-radius: 24px;
   overflow: hidden;
   border: 1px solid var(--linha);
 }
-
 .voltar {
   font-weight: 700;
   text-decoration: none;
   color: var(--suave);
 }
-
 .voltar:hover {
   color: var(--tinta);
 }
-
 .estoque.com {
   color: #2f7d1f;
   font-weight: 600;
 }
-
 .estoque.sem {
   color: var(--erro);
   font-weight: 600;
 }
-
 .tabela-specs th {
   width: 45%;
   background: var(--papel);
 }
-
 .tabela-specs caption,
 .tabela-dados caption {
   caption-side: top;
@@ -638,14 +540,12 @@ a {
   color: var(--tinta);
   padding-left: 0;
 }
-
 .tabela-dados {
   width: 100%;
   border-collapse: collapse;
   background: #fff;
   border: 1px solid var(--linha);
 }
-
 .tabela-dados thead th {
   background: var(--tinta);
   color: var(--lima);
@@ -653,7 +553,6 @@ a {
   padding: 0.75rem 1rem;
   font-size: 0.9rem;
 }
-
 .tabela-dados td,
 .tabela-dados tbody th {
   padding: 0.75rem 1rem;
@@ -661,51 +560,41 @@ a {
   text-align: left;
   vertical-align: top;
 }
-
 .tabela-dados tbody tr:nth-child(even) {
   background: var(--papel);
 }
-
 .tabela-dados tbody tr:hover {
   background: #eaf9bf;
 }
-
 .rolagem-x {
   overflow-x: auto;
 }
-
 .item-carrinho {
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
-
 .item-carrinho img {
   width: 72px;
   border-radius: 10px;
 }
-
 .item-carrinho small {
   display: block;
   color: var(--suave);
 }
-
 .quantidade {
   width: 120px;
 }
-
 .caixa-resumo {
   background: var(--tinta);
   color: #fff;
   border-radius: 20px;
   padding: 1.5rem;
 }
-
 .caixa-resumo strong {
   color: var(--lima);
   font-size: 1.8rem;
 }
-
 .cartao-form {
   background: #fff;
   border: 1px solid var(--linha);
@@ -713,12 +602,10 @@ a {
   padding: 1.75rem;
   box-shadow: 0 12px 30px rgba(15, 26, 20, 0.06);
 }
-
 .form-label {
   font-weight: 700;
   font-size: 0.9rem;
 }
-
 .form-control,
 .form-select,
 .campo {
@@ -726,13 +613,11 @@ a {
   border-radius: 12px;
   transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
 }
-
 .form-control:hover,
 .form-select:hover,
 .campo:hover {
   border-color: #b9c4ae;
 }
-
 .form-control:focus,
 .form-select:focus,
 .campo:focus {
@@ -740,19 +625,16 @@ a {
   box-shadow: 0 0 0 4px rgba(184, 243, 55, 0.55);
   outline: none;
 }
-
 .was-validated .form-control:invalid,
 .was-validated .form-select:invalid,
 .campo:invalid:not(:placeholder-shown):not(:focus) {
   border-color: var(--erro);
   background-color: #fdf1ef;
 }
-
 .was-validated .form-control:valid,
 .was-validated .form-select:valid {
   border-color: var(--lima-escuro);
 }
-
 .linha-status {
   display: flex;
   flex-direction: column;
@@ -761,14 +643,12 @@ a {
   padding: 0;
   margin: 0 0 1rem;
 }
-
 .linha-status li {
   position: relative;
   padding-left: 1.75rem;
   color: var(--suave);
   font-size: 0.9rem;
 }
-
 .linha-status li::before {
   content: "";
   position: absolute;
@@ -780,37 +660,30 @@ a {
   border: 2px solid var(--linha);
   background: #fff;
 }
-
 .linha-status li.feito {
   color: var(--tinta);
 }
-
 .linha-status li.feito::before {
   background: var(--tinta);
   border-color: var(--tinta);
 }
-
 .linha-status li.atual {
   color: var(--tinta);
   font-weight: 800;
 }
-
 .linha-status li.atual::before {
   background: var(--lima);
   border-color: var(--tinta);
 }
-
 .itens-pedido {
   background: var(--papel);
   border-radius: 12px;
   padding: 0.75rem 1rem 0.75rem 2rem;
 }
-
 .pedido-card {
   border-radius: var(--raio);
   border-color: var(--linha);
 }
-
 .passos {
   counter-reset: passo;
   list-style: none;
@@ -818,7 +691,6 @@ a {
   display: grid;
   gap: 1rem;
 }
-
 .passos li {
   counter-increment: passo;
   display: flex;
@@ -829,7 +701,6 @@ a {
   border-radius: var(--raio);
   padding: 1rem;
 }
-
 .passos li::before {
   content: counter(passo);
   flex-shrink: 0;
@@ -842,14 +713,12 @@ a {
   font-weight: 800;
   border: 2px solid var(--tinta);
 }
-
 .midia video,
 .midia audio {
   width: 100%;
   border-radius: 14px;
   background: var(--tinta);
 }
-
 .equipe {
   display: grid;
   grid-template-columns: 1fr;
@@ -857,7 +726,6 @@ a {
   list-style: none;
   padding: 0;
 }
-
 .equipe li {
   display: flex;
   align-items: center;
@@ -868,7 +736,6 @@ a {
   padding: 0.8rem 1rem;
   font-weight: 600;
 }
-
 .equipe .inicial {
   background: var(--tinta);
   color: var(--lima);
@@ -880,25 +747,21 @@ a {
   font-weight: 800;
   flex-shrink: 0;
 }
-
 .texto-leitura {
   max-width: 72ch;
 }
-
 .aviso-legal {
   border-left: 6px solid var(--lima);
   background: var(--papel);
   padding: 1rem 1.25rem;
   border-radius: 0 12px 12px 0;
 }
-
 .filtros-regra {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin: 1rem 0;
 }
-
 .filtros-regra button {
   font: inherit;
   font-weight: 700;
@@ -909,27 +772,23 @@ a {
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
 }
-
 .filtros-regra button:hover,
 .filtros-regra button.ativo {
   background: var(--tinta);
   color: var(--lima);
 }
-
 .formulario-simples label {
   display: block;
   font-weight: 700;
   font-size: 0.9rem;
   margin: 1rem 0 0.3rem;
 }
-
 .formulario-simples .campo {
   width: 100%;
   padding: 0.6rem 0.85rem;
   font: inherit;
   background: #fff;
 }
-
 .botao-simples {
   display: inline-block;
   background: var(--lima);
@@ -944,26 +803,22 @@ a {
   text-decoration: none;
   transition: background 0.15s, color 0.15s;
 }
-
 .botao-simples:hover {
   background: var(--tinta);
   border-color: var(--tinta);
   color: var(--lima);
 }
-
 .rodape {
   background: var(--tinta);
   color: #c4d0c7;
   margin-top: 3rem;
 }
-
 .rodape-grade {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
   padding: 2.5rem 0;
 }
-
 .rodape h2 {
   font-size: 0.8rem;
   text-transform: uppercase;
@@ -971,34 +826,28 @@ a {
   color: var(--lima);
   margin-bottom: 0.75rem;
 }
-
 .rodape ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-
 .rodape a {
   text-decoration: none;
   transition: color 0.15s;
 }
-
 .rodape a:hover {
   color: var(--lima);
 }
-
 .rodape-base {
   border-top: 1px solid #2c3b31;
   padding: 1rem 0;
   font-size: 0.85rem;
 }
-
 .rodape-base .container-principal {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
-
 .rodape-base nav a {
   margin-right: 1rem;
 }
