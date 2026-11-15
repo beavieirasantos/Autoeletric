@@ -1,215 +1,134 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Regras de circulação | Autoeletric</title>
-        <link rel="icon" href="img/logo.png" type="image/png">
-        <link rel="stylesheet" href="css/style.css">
-    </head>
-    <body data-pagina="regulamentacao">
-        <header>
-            <div class="cabecalho-topo">
-                <div class="container-principal">
-                    <a class="marca" href="index.html">
-                        <img src="img/logo.png" alt="">
-                        <span>Auto<em>eletric</em></span>
-                    </a>
-                    <span class="slogan">Mobilidade elétrica urbana, retirada em Curitiba</span>
-                </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Regras de circulação | Autoeletric</title>
+  <link rel="icon" href="img/logo.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-pagina="regulamentacao">
+  <header>
+    <div class="cabecalho-topo">
+      <div class="container-principal">
+        <a class="marca" href="index.html"><img src="img/logo.png" alt="Logo"><span>Auto<em>eletric</em></span></a>
+        <span class="slogan">Mobilidade elétrica urbana, retirada em Curitiba</span>
+        <button id="botaoTema" class="btn btn-outline-dark btn-sm" onclick="trocarTema()">🌙 Modo escuro</button>
+      </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark barra-menu">
+      <div class="container-principal">
+        <button class="navbar-toggler ms-auto my-2" data-bs-toggle="collapse" data-bs-target="#menu" aria-label="Abrir menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menu">
+          <div class="navbar-nav me-auto">
+            <a class="nav-link" href="index.html">Início</a>
+            <a class="nav-link" href="catalogo.html">Veículos</a>
+            <a class="nav-link" href="acessorios.html">Acessórios</a>
+            <a class="nav-link" href="retirada.html">Retirada</a>
+            <a class="nav-link active" href="regulamentacao.html">Regras</a>
+            <a class="nav-link" href="sobre.html">Sobre</a>
+            <a class="nav-link" href="contato.html">Contato</a>
+            <a class="nav-link" href="https://www.detran.pr.gov.br" target="_blank">Detran-PR ↗</a>
+          </div>
+          <div class="navbar-nav align-items-lg-center">
+            <span id="navSessao"></span>
+            <div class="dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Conta</a>
+              <div class="dropdown-menu dropdown-menu-end">
+                <a class="dropdown-item" href="login.html">Entrar</a>
+                <a class="dropdown-item" href="cadastro.html">Cadastrar</a>
+                <a class="dropdown-item" href="pedidos.html">Meus pedidos</a>
+              </div>
             </div>
-            <nav class="menu-simples-barra" aria-label="Principal">
-                <div class="container-principal">
-                    <button id="botaoMenu" type="button" aria-expanded="false" aria-controls="menuSimples">Menu</button>
-                    <ul id="menuSimples">
-                        <li>
-                            <a href="index.html">Início</a>
-                        </li>
-                        <li>
-                            <a href="catalogo.html">Veículos</a>
-                        </li>
-                        <li>
-                            <a href="acessorios.html">Acessórios</a>
-                        </li>
-                        <li>
-                            <a href="retirada.html">Retirada</a>
-                        </li>
-                        <li>
-                            <a href="regulamentacao.html" class="ativo">Regras</a>
-                        </li>
-                        <li>
-                            <a href="sobre.html">Sobre</a>
-                        </li>
-                        <li>
-                            <a href="contato.html">Contato</a>
-                        </li>
-                        <li>
-                            <a href="https://www.detran.pr.gov.br" target="_blank" rel="noopener">Detran-PR &#8599;</a>
-                        </li>
-                        <li>
-                            <a href="pedidos.html">Conta</a>
-                        </li>
-                        <li>
-                            <a href="carrinho.html">Carrinho <span class="contador-carrinho" hidden>0</span></a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-    <main>
-        <section class="cabecalho-pagina">
-            <div class="container-principal">
-                <h1>Regulamentação e segurança</h1>
-                <p>O que a lei diz sobre os autopropelidos que vendemos e onde você pode circular em Curitiba.</p>
-            </div>
-        </section>
-        <section class="secao">
-            <div class="container-principal">
-                <div class="aviso-legal texto-leitura">
-                    <strong>Resolução CONTRAN nº 996/2023:</strong> equipamentos autopropelidos têm motor de até 1.000 W, velocidade máxima de fabricação de 32 km/h, largura de até 70 cm e distância entre eixos de até 130 cm. Monociclos autoequilibrados podem ter até 4.000 W. Não exigem CNH, registro, licenciamento ou emplacamento.
-                </div>
-                <h2 style="margin-top:2rem">Onde e como circular no Paraná</h2>
-                <p class="texto-leitura">A Resolução CETRAN-PR nº 106/2026 define as regras que valem para Curitiba. Filtre a tabela por tipo de regra:</p>
-                <div class="filtros-regra">
-                    <button type="button" class="ativo" data-filtro-regra="todos">Todas</button>
-                    <button type="button" data-filtro-regra="limite">Limites de velocidade</button>
-                    <button type="button" data-filtro-regra="pessoa">Condutor</button>
-                    <button type="button" data-filtro-regra="proibido">Proibições</button>
-                </div>
-                <div class="rolagem-x">
-                    <table class="tabela-dados" id="tabelaRegras">
-                        <caption>Regras de circulação em Curitiba</caption>
-                        <thead>
-                            <tr>
-                                <th scope="col">Local ou item</th>
-                                <th scope="col">Regra</th>
-                                <th scope="col">Limite</th>
-                                <th scope="col">Situação</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr data-tipo="limite">
-                                <th scope="row">Ciclovias e ciclofaixas</th>
-                                <td>Velocidade máxima reduzida</td>
-                                <td>20 km/h</td>
-                                <td>Permitido</td>
-                            </tr>
-                            <tr data-tipo="limite">
-                                <th scope="row">Áreas de pedestres</th>
-                                <td>Somente onde autorizado e sinalizado</td>
-                                <td>6 km/h</td>
-                                <td>Condicionado</td>
-                            </tr>
-                            <tr data-tipo="limite">
-                                <th scope="row">Vias urbanas</th>
-                                <td>Ruas com velocidade regulamentada</td>
-                                <td>Até 40 km/h</td>
-                                <td>Permitido</td>
-                            </tr>
-                            <tr data-tipo="pessoa">
-                                <th scope="row">Idade mínima</th>
-                                <td>Entre 16 e 18 anos, com autorização dos responsáveis</td>
-                                <td>16 anos</td>
-                                <td>Obrigatório</td>
-                            </tr>
-                            <tr data-tipo="pessoa">
-                                <th scope="row">Capacete</th>
-                                <td>Recomendado para autopropelidos e e-bikes</td>
-                                <td>—</td>
-                                <td>Recomendado</td>
-                            </tr>
-                            <tr data-tipo="pessoa">
-                                <th scope="row">Itens de segurança</th>
-                                <td>Velocímetro ou limitador, campainha e sinalização noturna</td>
-                                <td>—</td>
-                                <td>Obrigatório</td>
-                            </tr>
-                            <tr data-tipo="proibido">
-                                <th scope="row">Rodovias e vias de trânsito rápido</th>
-                                <td>Circulação proibida</td>
-                                <td>—</td>
-                                <td>Proibido</td>
-                            </tr>
-                            <tr data-tipo="proibido">
-                                <th scope="row">Faixas exclusivas de ônibus</th>
-                                <td>Circulação proibida</td>
-                                <td>—</td>
-                                <td>Proibido</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-    </main>
-    <footer class="rodape">
-        <div class="container-principal">
-            <div class="rodape-grade">
-                <div>
-                    <a class="marca text-white mb-2" href="index.html">
-                        <img src="img/logo.png" alt="">
-                        <span>Auto<em style="color:#0f1a14">eletric</em></span>
-                    </a>
-                    <p>Loja virtual de veículos autopropelidos elétricos e acessórios. Compra online, retirada presencial na loja física em Curitiba/PR.</p>
-                </div>
-                <div>
-                    <h2>Loja</h2>
-                    <ul>
-                        <li>
-                            <a href="catalogo.html">Veículos</a>
-                        </li>
-                        <li>
-                            <a href="acessorios.html">Acessórios</a>
-                        </li>
-                        <li>
-                            <a href="carrinho.html">Carrinho</a>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <h2>Ajuda</h2>
-                    <ul>
-                        <li>
-                            <a href="retirada.html">Como retirar</a>
-                        </li>
-                        <li>
-                            <a href="regulamentacao.html">Regras de circulação</a>
-                        </li>
-                        <li>
-                            <a href="contato.html">Contato</a>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <h2>Conta</h2>
-                    <ul>
-                        <li>
-                            <a href="login.html">Entrar</a>
-                        </li>
-                        <li>
-                            <a href="cadastro.html">Cadastrar</a>
-                        </li>
-                        <li>
-                            <a href="pedidos.html">Meus pedidos</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <a class="nav-link" href="carrinho.html">Carrinho <span class="contador-carrinho" hidden>0</span></a>
+          </div>
         </div>
-        <div class="rodape-base">
-            <div class="container-principal">
-                <span>&copy; 
-                    <span class="ano-atual">2026</span>
-                    Autoeletric. Cadastro restrito a maiores de 18 anos.
-                </span>
-                <nav aria-label="Rodapé">
-                    <a href="sobre.html">Sobre</a>
-                    <a href="https://www.gov.br/transportes/pt-br" target="_blank" rel="noopener">Ministério dos Transportes &#8599;</a>
-                </nav>
-            </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="cabecalho-pagina">
+      <div class="container-principal">
+        <h1>Regulamentação e segurança</h1>
+        <p>O que a lei diz sobre os autopropelidos que vendemos e onde você pode circular em Curitiba.</p>
+      </div>
+    </section>
+
+    <section class="secao">
+      <div class="container-principal">
+        <div class="aviso-legal texto-leitura">
+          <strong>Resolução CONTRAN nº 996/2023:</strong> equipamentos autopropelidos têm motor de até 1.000 W, velocidade máxima de fabricação de 32 km/h, largura de até 70 cm e distância entre eixos de até 130 cm. Monociclos autoequilibrados podem ter até 4.000 W. Não exigem CNH, registro, licenciamento ou emplacamento.
         </div>
-    </footer>
-        <script src="js/dados.js"></script>
-        <script src="js/app.js"></script>
-    </body>
+
+        <h2 class="mt-5">Onde e como circular no Paraná</h2>
+        <p class="texto-leitura">A Resolução CETRAN-PR nº 106/2026 define as regras que valem para Curitiba. Filtre a tabela por tipo de regra:</p>
+        <div class="filtros-regra">
+          <button class="btn btn-outline-dark btn-sm active" onclick="filtrarRegras('todos', this)">Todas</button>
+          <button class="btn btn-outline-dark btn-sm" onclick="filtrarRegras('limite', this)">Limites de velocidade</button>
+          <button class="btn btn-outline-dark btn-sm" onclick="filtrarRegras('pessoa', this)">Condutor</button>
+          <button class="btn btn-outline-dark btn-sm" onclick="filtrarRegras('proibido', this)">Proibições</button>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-striped table-hover tabela" id="tabelaRegras">
+            <thead>
+              <tr><th>Local ou item</th><th>Regra</th><th>Limite</th><th>Situação</th></tr>
+            </thead>
+            <tbody>
+              <tr data-tipo="limite"><th>Ciclovias e ciclofaixas</th><td>Velocidade máxima reduzida</td><td>20 km/h</td><td>Permitido</td></tr>
+              <tr data-tipo="limite"><th>Áreas de pedestres</th><td>Somente onde autorizado e sinalizado</td><td>6 km/h</td><td>Condicionado</td></tr>
+              <tr data-tipo="limite"><th>Vias urbanas</th><td>Ruas com velocidade regulamentada</td><td>Até 40 km/h</td><td>Permitido</td></tr>
+              <tr data-tipo="pessoa"><th>Idade mínima</th><td>Entre 16 e 18 anos, com autorização dos responsáveis</td><td>16 anos</td><td>Obrigatório</td></tr>
+              <tr data-tipo="pessoa"><th>Capacete</th><td>Recomendado para autopropelidos e e-bikes</td><td>—</td><td>Recomendado</td></tr>
+              <tr data-tipo="pessoa"><th>Itens de segurança</th><td>Velocímetro ou limitador, campainha e sinalização noturna</td><td>—</td><td>Obrigatório</td></tr>
+              <tr data-tipo="proibido"><th>Rodovias e vias de trânsito rápido</th><td>Circulação proibida</td><td>—</td><td>Proibido</td></tr>
+              <tr data-tipo="proibido"><th>Faixas exclusivas de ônibus</th><td>Circulação proibida</td><td>—</td><td>Proibido</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="container-principal rodape-grade">
+      <div>
+        <a class="marca" href="index.html"><img src="img/logo.png" alt="Logo"><span>Auto<em>eletric</em></span></a>
+        <p>Loja virtual de veículos autopropelidos elétricos e acessórios. Compra online, retirada presencial na loja física em Curitiba/PR.</p>
+      </div>
+      <nav>
+        <h2>Loja</h2>
+        <a href="catalogo.html">Veículos</a>
+        <a href="acessorios.html">Acessórios</a>
+        <a href="carrinho.html">Carrinho</a>
+      </nav>
+      <nav>
+        <h2>Ajuda</h2>
+        <a href="retirada.html">Como retirar</a>
+        <a href="regulamentacao.html">Regras de circulação</a>
+        <a href="contato.html">Contato</a>
+      </nav>
+      <nav>
+        <h2>Conta</h2>
+        <a href="login.html">Entrar</a>
+        <a href="cadastro.html">Cadastrar</a>
+        <a href="pedidos.html">Meus pedidos</a>
+      </nav>
+    </div>
+    <div class="rodape-base">
+      <div class="container-principal">
+        <span>© <span class="ano-atual">2026</span> Autoeletric. Cadastro restrito a maiores de 18 anos.</span>
+        <span><a href="sobre.html">Sobre</a> · <a href="https://www.gov.br/transportes/pt-br" target="_blank">Ministério dos Transportes ↗</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/dados.js"></script>
+  <script src="js/app.js"></script>
+</body>
 </html>
