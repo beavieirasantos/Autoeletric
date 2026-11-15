@@ -5,7 +5,7 @@
 
 /* ---------- Cores do modo claro ---------- */
 :root {
-  --lima: #b8f337;       /* verde-lima da marca */
+  --lima: #c6f54b;       /* verde-lima da marca */
   --lima-escuro: #8fc41a;
   --tinta: #0f1a14;      /* verde quase preto: menu e rodapé */
   --floresta: #17301f;   /* verde-escuro: destaque e preços */
@@ -137,7 +137,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--lima-escuro); o
 .nav-sair { color: var(--lima); font-weight: 700; }
 
 /* ---------- Faixa de título das páginas ---------- */
-.cabecalho-pagina { padding: 2.5rem 0; background: linear-gradient(105deg, #b8f337, #dcf79e); color: var(--tinta); }
+.cabecalho-pagina { padding: 2.5rem 0; background: linear-gradient(105deg, var(--lima), #e1f9a4); color: var(--tinta); }
 .cabecalho-pagina h1 { font-size: 2rem; margin: 0 0 0.5rem; }
 .cabecalho-pagina p { max-width: 60ch; margin: 0; font-size: 1.1rem; }
 .faixa-titulo {
@@ -152,7 +152,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--lima-escuro); o
 .faixa-titulo a { font-weight: 700; }
 
 /* ---------- Página inicial ---------- */
-.hero-secao { padding: 1rem 0 2.75rem; background: radial-gradient(ellipse at 86% 6%, rgba(184, 243, 55, 0.12), transparent 34rem); }
+.hero-secao { padding: 1rem 0 2.75rem; background: radial-gradient(ellipse at 86% 6%, rgba(198, 245, 75, 0.12), transparent 34rem); }
 .grade-destaques { display: grid; gap: 1.25rem; }
 .destaque-principal {
   order: 2;
@@ -303,7 +303,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--lima-escuro); o
 .estoque-com { color: var(--verde); font-weight: 600; }
 .estoque-sem { color: var(--erro); font-weight: 600; }
 .tabela-specs th { width: 45%; background: var(--papel); }
-.tabela { --bs-table-hover-bg: rgba(184, 243, 55, 0.3); }   /* tabelas de Retirada e Regras */
+.tabela { --bs-table-hover-bg: rgba(198, 245, 75, 0.3); }   /* tabelas de Retirada e Regras */
 .tabela thead th { background: var(--tinta); color: var(--lima); }
 
 /* ---------- Carrinho ---------- */
@@ -324,7 +324,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--lima-escuro); o
 }
 .form-label { font-weight: 700; font-size: 0.9rem; }
 .form-control, .form-select { border: 2px solid var(--linha); border-radius: 12px; }
-.form-control:focus, .form-select:focus { border-color: var(--texto); box-shadow: 0 0 0 4px rgba(184, 243, 55, 0.55); }
+.form-control:focus, .form-select:focus { border-color: var(--texto); box-shadow: 0 0 0 4px rgba(198, 245, 75, 0.55); }
 .was-validated .form-control:invalid, .was-validated .form-select:invalid { border-color: var(--erro); background-color: rgba(192, 57, 43, 0.08); }
 .was-validated .form-control:valid, .was-validated .form-select:valid { border-color: var(--lima-escuro); }
 
@@ -386,15 +386,15 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--lima-escuro); o
 .equipe li { background: var(--papel); border: 1px solid var(--linha); border-radius: 8px; padding: 0.8rem 1rem; font-weight: 600; }
 
 /* ---------- Rodapé ---------- */
-.rodape { background: var(--tinta); color: #c4d0c7; }
-.rodape-grade { display: grid; gap: 1.5rem; padding-top: 3rem; padding-bottom: 3rem; }
+.rodape { background: var(--tinta); color: #c4d0c7; border-top: 2px solid var(--lima); }
+.rodape .rodape-grade { display: grid; gap: 2rem; padding-top: 4rem; padding-bottom: 3.5rem; }
 .rodape .marca { color: #fff; margin-bottom: 0.5rem; }
 .rodape h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--lima); margin-bottom: 0.75rem; }
 .rodape nav a { display: block; }
 .rodape a { text-decoration: none; }
 .rodape a:hover { color: var(--lima); }
-.rodape-base { border-top: 1px solid #2c3b31; padding: 1rem 0; font-size: 0.85rem; color: #d0d9d1; }
-.rodape-base .container-principal { display: flex; flex-direction: column; gap: 0.5rem; }
+.rodape-base { border-top: 1px solid #2c3b31; padding: 1.25rem 0; font-size: 0.85rem; color: #d0d9d1; }
+.rodape-base .container-principal { display: flex; flex-direction: column; gap: 0.75rem; }
 
 /* ---------- Avisos rápidos no canto da tela ---------- */
 #areaAvisos { position: fixed; right: 1rem; bottom: 1rem; z-index: 2000; display: grid; gap: 0.5rem; }
@@ -445,7 +445,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--lima-escuro); o
   .destaque-principal { display: grid; grid-template-columns: 1.05fr 0.95fr; }
   .destaque-principal img { height: 100%; min-height: 420px; }
   .dupla, .rodape-grade { grid-template-columns: 1fr 1fr; }
-  .rodape-base .container-principal { flex-direction: row; justify-content: space-between; }
+  .rodape-base .container-principal { flex-direction: row; align-items: center; justify-content: space-between; }
 }
 
 /* ---------- A partir de 990px (computador) ---------- */

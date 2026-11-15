@@ -15,6 +15,10 @@ function salvar(chave, valor) {
   localStorage.setItem(chave, JSON.stringify(valor));
 }
 
+function aplicarTema(tema) {
+  document.documentElement.setAttribute("data-bs-theme", tema === "dark" ? "dark" : "light");
+}
+
 function moeda(valor) {
   return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
@@ -31,19 +35,6 @@ function acharCategoria(id) {
 function parametro(nome) {
   return new URLSearchParams(location.search).get(nome);
 }
-
-// ---------- Modo claro / escuro ----------
-// O Bootstrap e o nosso CSS mudam as cores pelo atributo <html data-bs-theme="dark">
-function aplicarTema(tema) {
-  document.documentElement.dataset.bsTheme = tema;
-  salvar("ae_tema", tema);
-  document.getElementById("botaoTema").textContent = tema === "dark" ? "☀️ Modo claro" : "🌙 Modo escuro";
-}
-
-function trocarTema() {
-  aplicarTema(document.documentElement.dataset.bsTheme === "dark" ? "light" : "dark");
-}
-
 // ---------- Estoque ----------
 // Começa com o valor do dados.js e diminui a cada compra
 function estoque(produto) {
@@ -281,10 +272,11 @@ function iniciarProduto() {
 function desenharCarrinho() {
   const carrinho = lerCarrinho();
   document.getElementById("carrinhoVazio").hidden = carrinho.length > 0;
-  document.getElementById("carrinhoConteudo").hidden = carrinho.length === 0;
+  document.getElementById("carrinhoItens").hidden = carrinho.length === 0;
+  document.getElementById("botaoFinalizarCompra").hidden = carrinho.length === 0;
 
   let total = 0;
-  document.getElementById("itensCarrinho").innerHTML = carrinho.map(item => {
+  document.getElementById("linhasCarrinho").innerHTML = carrinho.map(item => {
     const p = acharProduto(item.id);
     total += p.preco * item.qtd;
     return `
