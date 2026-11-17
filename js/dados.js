@@ -27,10 +27,10 @@ const PRODUTOS = [
   { id: 15, categoria: "iluminacao", nome: "Lanterna Traseira com Freio", descricao: "Acende mais forte ao frear e possui piscas laterais para sinalização noturna.", preco: 79, estoque: 35, imagem: "img/luz.svg", specs: { "Modos": "4", "Carga": "USB-C", "Autonomia": "10 h", "Resistência": "IPX5" } }
 ];
 
-const NOVIDADES = [
-  { data: "Out/2026", titulo: "Retirada na loja de Curitiba com status em tempo real", texto: "Acompanhe pelo site quando o seu pedido estiver disponível para retirada." },
-  { data: "Out/2026", titulo: "Novos patinetes dentro da Resolução CONTRAN 996/2023", texto: "Modelos de até 1.000 W e 32 km/h, sem necessidade de CNH ou emplacamento." },
-  { data: "Set/2026", titulo: "Acessórios de segurança agora no mesmo pedido", texto: "Adicione capacete, luzes e carregador ao veículo e retire tudo de uma vez." }
-];
-
-const STATUS_PEDIDO = ["Pagamento pendente", "Pagamento aprovado", "Em preparação", "Aguardando retirada", "Retirado"];
+const STATUS_PEDIDO = [
+  "Pagamento pendente",
+  "Pagamento aprovado",
+  "Em preparação",
+  "Aguardando retirada",
+  "Retirado"
+];;
