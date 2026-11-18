@@ -1,37 +1,182 @@
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const ler=(k,d)=>{try{const t=localStorage.getItem(k);return t?JSON.parse(t):d}catch{return d}};
-const salvar=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
-const moeda=v=>Number(v).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-const acharProduto=id=>PRODUTOS.find(p=>p.id===Number(id));
-const acharCategoria=id=>CATEGORIAS.find(c=>c.id===id);
-const param=n=>new URLSearchParams(location.search).get(n);
-const estoque=p=>{const s=ler('ae_estoque',{});return s[p.id]!==void 0?s[p.id]:p.estoque;};
-const baixarEstoque=(p,q)=>{const s=ler('ae_estoque',{});s[p.id]=estoque(p)-q;salvar('ae_estoque',s);};
-const carrinho=()=>ler('ae_carrinho',[]);
-const avisar=(m,t)=>{let a=$('#areaAvisos');if(!a){a=document.createElement('div');a.id='areaAvisos';document.body.appendChild(a)}const b=document.createElement('div');b.className=`aviso aviso-${t}`;b.textContent=m;a.appendChild(b);setTimeout(()=>b.remove(),3000);};
-const clienteLogado=()=>{const e=ler('ae_sessao',null);return ler('ae_clientes',[]).find(c=>c.email===e);};
-const mostrarSessao=()=>{const c=clienteLogado();if(!c)return;const a=$('#navSessao');if(!a)return;a.innerHTML='<span class="nav-ola"></span><a class="nav-sair" href="index.html" onclick="sair()">Sair</a>';a.querySelector('.nav-ola').textContent=`Olá, ${c.nome.split(' ')[0]}`;};
-const sair=()=>localStorage.removeItem('ae_sessao');
-const codificar=s=>btoa(unescape(encodeURIComponent(s)));
-const proximaPagina=()=>param('next')==='carrinho.html'?'carrinho.html':'pedidos.html';
-const atualizarContador=()=>{const total=carrinho().reduce((s,i)=>s+Number(i.qtd||0),0);$$('.contador-carrinho').forEach(n=>{n.textContent=total;n.hidden=total===0;});};
-const cardProduto=p=>{const q=estoque(p),r=p.descricao.split('. ')[0],c=acharCategoria(p.categoria),s=q===0?'<span class="selo selo-esgotado">Esgotado</span>':q<=4?`<span class="selo">Últimas ${q} unidades</span>`:'';return `<div class="col"><article class="card cartao-produto h-100"><a class="cartao-imagem" href="produto.html?id=${p.id}"><img class="card-img-top" src="${p.imagem}" alt="${p.nome}">${s}</a><div class="card-body d-flex flex-column"><small class="cartao-categoria">${c.nome}</small><h3 class="card-title h5">${p.nome}</h3><p class="card-text flex-grow-1">${r.endsWith('.')?r:`${r}.`}</p><p class="preco">${moeda(p.preco)}</p><div class="d-flex gap-2"><button class="btn btn-lima btn-sm flex-fill" onclick="adicionarAoCarrinho(${p.id})" ${q===0?'disabled':''}>${q===0?'Indisponível':'Adicionar'}</button></div></div></article></div>`;};
-const adicionarAoCarrinho=id=>{const p=acharProduto(id);if(!p)return;const c=carrinho();const i=c.find(x=>x.id===p.id);const j=i?i.qtd:0;if(j+1>estoque(p)){avisar(`Quantidade indisponível em estoque para ${p.nome}.`,'warning');return;}if(i)i.qtd++;else c.push({id:p.id,qtd:1});salvar('ae_carrinho',c);atualizarContador();avisar(`${p.nome} foi adicionado ao carrinho.`,'success');};
-const iniciarHome=()=>{const d=acharProduto(8);if(!d)return;$('#destaquePrincipal').innerHTML=`<img src="img/hero.jpg" alt="${d.nome}"><div class="destaque-texto"><span class="etiqueta">Destaque da semana</span><h2>${d.nome}</h2><p>${d.descricao}</p><a class="btn btn-lima btn-lg" href="produto.html?id=${d.id}">Ver por ${moeda(d.preco)}</a></div>`;$('#destaquesLaterais').innerHTML=[5,6,1].map((id,idx)=>{const p=acharProduto(id);if(!p)return '';return `<a class="destaque-lateral" href="produto.html?id=${p.id}"><span class="numero">${idx+1}</span><img src="${p.imagem}" alt="${p.nome}"><div><strong>${p.nome}</strong><small>${moeda(p.preco)}</small></div></a>`;}).join('');};
-const iniciarCatalogo=tipo=>{const b=$('#filtroBusca'),c=$('#filtroCategoria'),o=$('#filtroOrdem');CATEGORIAS.filter(x=>x.tipo===tipo).forEach(x=>c.innerHTML+=`<option value="${x.id}">${x.nome}</option>`);c.value=param('categoria')||'todas';const r=()=>{const t=b.value.trim().toLowerCase();const l=PRODUTOS.filter(p=>{const ct=acharCategoria(p.categoria);return ct.tipo===tipo&&(c.value==='todas'||p.categoria===c.value)&&(p.nome.toLowerCase().includes(t)||p.descricao.toLowerCase().includes(t));});if(o.value==='menor')l.sort((a,b)=>a.preco-b.preco);else if(o.value==='maior')l.sort((a,b)=>b.preco-a.preco);else l.sort((a,b)=>a.nome.localeCompare(b.nome));$('#contagemResultados').textContent=`${l.length} ${l.length===1?'produto encontrado':'produtos encontrados'}`;$('#listaProdutos').innerHTML=l.length>0?l.map(cardProduto).join(''):'<div class="col-12"><div class="alert alert-secondary">Nenhum produto corresponde à sua busca.</div></div>';};b.addEventListener('input',r);c.addEventListener('change',r);o.addEventListener('change',r);r();};
-const iniciarProduto=()=>{const p=acharProduto(param('id'));const a=$('#detalheProduto');if(!p){a.innerHTML='<div class="alert alert-warning">Produto não encontrado. <a class="alert-link" href="catalogo.html">Voltar ao catálogo</a>.</div>';return;}document.title=`${p.nome} | Autoeletric`;const q=estoque(p),ct=acharCategoria(p.categoria),volta=ct.tipo==='veiculo'?'catalogo.html':'acessorios.html',f=Object.entries(p.specs).map(([k,v])=>`<tr><th>${k}</th><td>${v}</td></tr>`).join('');a.innerHTML=`<div class="row g-4 g-lg-5 align-items-start"><div class="col-lg-6"><img class="detalhe-imagem" src="${p.imagem}" alt="${p.nome}"></div><div class="col-lg-6"><a class="voltar" href="${volta}?categoria=${p.categoria}">&larr; ${ct.nome}</a><h1>${p.nome}</h1><p class="lead">${p.descricao}</p><p class="preco preco-grande">${moeda(p.preco)}</p><p class="${q===0?'estoque-sem':'estoque-com'}">${q===0?'Esgotado no momento':`${q} unidades disponíveis para retirada em Curitiba`}</p><button class="btn btn-lima btn-lg" onclick="adicionarAoCarrinho(${p.id})" ${q===0?'disabled':''}>Adicionar ao carrinho</button><h2 class="h5 mt-4">Ficha técnica</h2><table class="table table-sm tabela-specs">${f}</table></div></div>`;};
-const desenharCarrinho=()=>{const c=carrinho(),v=$('#carrinhoVazio'),i=$('#carrinhoItens'),f=$('#botaoFinalizarCompra'),l=$('#linhasCarrinho'),r=$('#resumoCarrinho');v.hidden=c.length>0;i.hidden=c.length===0;f.hidden=c.length===0;let total=0;l.innerHTML=c.map(item=>{const p=acharProduto(item.id);if(!p)return '';total+=p.preco*item.qtd;return `<tr><td><div class="item-carrinho"><img src="${p.imagem}" alt=""><div><strong>${p.nome}</strong><small>${moeda(p.preco)} cada</small></div></div></td><td><div class="input-group input-group-sm quantidade"><button class="btn btn-outline-dark" onclick="mudarQuantidade(${p.id},-1)" aria-label="Diminuir">&minus;</button><input class="form-control text-center" value="${item.qtd}" readonly aria-label="Quantidade"><button class="btn btn-outline-dark" onclick="mudarQuantidade(${p.id},1)" aria-label="Aumentar">+</button></div></td><td class="text-end fw-bold">${moeda(p.preco*item.qtd)}</td><td class="text-end"><button class="btn btn-sm btn-link text-danger" onclick="mudarQuantidade(${p.id},-${item.qtd})">Remover</button></td></tr>`;}).join('');r.textContent=moeda(total);};
-const mudarQuantidade=(id,m)=>{const c=carrinho();const item=c.find(x=>x.id===id);if(!item)return;const p=acharProduto(id);if(!p)return;const l=estoque(p);item.qtd+=m;if(item.qtd>l){item.qtd=l;avisar('Limite de estoque atingido.','warning');}salvar('ae_carrinho',c.filter(x=>x.qtd>0));atualizarContador();desenharCarrinho();};
-const abrirResumo=()=>{const c=clienteLogado();if(!c){location.href='login.html?next=carrinho.html';return;}let total=0;$('#modalItens').innerHTML=carrinho().map(item=>{const p=acharProduto(item.id);if(!p)return '';total+=p.preco*item.qtd;return `<li class="list-group-item d-flex justify-content-between"><span>${item.qtd}× ${p.nome}</span><strong>${moeda(p.preco*item.qtd)}</strong></li>`;}).join('');$('#modalCliente').textContent=`${c.nome} — CPF ${c.cpf}`;$('#modalTotal').textContent=moeda(total);bootstrap.Modal.getOrCreateInstance('#modalResumo').show();};
-const confirmarPedido=e=>{e.preventDefault();const c=carrinho();for(const item of c){const p=acharProduto(item.id);if(!p||item.qtd>estoque(p)){avisar(`Estoque insuficiente para ${p?p.nome:'o item selecionado'}.`,'warning');return;}}const pedidos=ler('ae_pedidos',[]),n=1001+pedidos.length;let total=0;const itens=c.map(item=>{const p=acharProduto(item.id);if(!p)return null;baixarEstoque(p,item.qtd);total+=p.preco*item.qtd;return{id:p.id,nome:p.nome,qtd:item.qtd,preco:p.preco};}).filter(Boolean);pedidos.push({numero:n,email:clienteLogado().email,itens,total,pagamento:$('#formaPagamento').value,status:0,criado:new Date().toISOString()});salvar('ae_pedidos',pedidos);salvar('ae_carrinho',[]);location.href=`pedidos.html?novo=${n}`;};
-const iniciarCadastro=()=>{$('#nascimento').max=new Date(new Date().getFullYear()-18,new Date().getMonth(),new Date().getDate()).toISOString().slice(0,10);};
-const conferirSenhas=()=>{$('#confirmaSenha').setCustomValidity($('#confirmaSenha').value===$('#senha').value?'':'As senhas não coincidem.');};
-const cadastrar=e=>{e.preventDefault();const f=e.target;conferirSenhas();f.classList.add('was-validated');if(!f.checkValidity())return;const c=ler('ae_clientes',[]),email=$('#email').value.trim().toLowerCase();if(c.some(x=>x.email===email)){ $('#alertaCadastro').innerHTML='<div class="alert alert-danger">Este e-mail já está cadastrado. <a class="alert-link" href="login.html">Entrar</a></div>';return;}c.push({id:c.length+1,nome:$('#nome').value.trim(),cpf:$('#cpf').value,email,telefone:$('#telefone').value,nascimento:$('#nascimento').value,senha_hash:codificar($('#senha').value),data_cadastro:new Date().toISOString()});salvar('ae_clientes',c);salvar('ae_sessao',email);location.href=proximaPagina();};
-const iniciarLogin=()=>{const l=$('#linkCadastro');if(l)l.href=`cadastro.html${location.search}`;};
-const entrar=e=>{e.preventDefault();const f=e.target;f.classList.add('was-validated');if(!f.checkValidity())return;const email=$('#emailLogin').value.trim().toLowerCase(),senha=codificar($('#senhaLogin').value),c=ler('ae_clientes',[]).find(x=>x.email===email&&x.senha_hash===senha);if(!c){$('#alertaLogin').innerHTML='<div class="alert alert-danger">E-mail ou senha incorretos.</div>';return;}salvar('ae_sessao',email);location.href=proximaPagina();};
-const iniciarPedidos=()=>{const a=$('#listaPedidos'),c=clienteLogado();if(!c){a.innerHTML='<div class="alert alert-info">Entre na sua conta para consultar seus pedidos. <a class="alert-link" href="login.html?next=pedidos.html">Entrar</a> ou <a class="alert-link" href="cadastro.html?next=pedidos.html">cadastre-se</a>.</div>';return;}if(param('novo'))$('#alertaNovo').innerHTML=`<div class="alert alert-success">Pedido #${Number(param('novo'))} registrado! Retire na loja física em Curitiba após o status "Aguardando retirada".</div>`;const meus=ler('ae_pedidos',[]).filter(p=>p.email===c.email).reverse();if(!meus.length){a.innerHTML='<div class="alert alert-secondary">Você ainda não fez pedidos. <a class="alert-link" href="catalogo.html">Explore o catálogo</a>.</div>';return;}a.innerHTML=meus.map(p=>{const ok=p.status===STATUS_PEDIDO.length-1,etapas=STATUS_PEDIDO.map((n,i)=>{let cl='';if(i<p.status)cl='feito';if(i===p.status)cl='atual';return `<li class="${cl}">${n}</li>`;}).join(''),itens=p.itens.map(i=>`<li>${i.qtd}× ${i.nome}</li>`).join('');return `<article class="card pedido-card mb-3"><div class="card-body"><div class="d-flex flex-wrap justify-content-between gap-2 mb-3"><h3 class="h5 mb-0">Pedido #${p.numero}</h3><span class="badge ${ok?'text-bg-dark':'badge-lima'}">${STATUS_PEDIDO[p.status]}</span></div><ol class="linha-status">${etapas}</ol><ul class="itens-pedido">${itens}</ul><div class="d-flex flex-wrap justify-content-between align-items-center gap-2"><span>${p.pagamento} · ${new Date(p.criado).toLocaleDateString('pt-BR')} · <strong>${moeda(p.total)}</strong></span><button class="btn btn-outline-dark btn-sm" onclick="avancarStatus(${p.numero})" ${ok?'disabled':''}>${ok?'Concluído':'Avançar status (simulação)'}</button></div></div></article>`;}).join('');};
-const avancarStatus=n=>{const p=ler('ae_pedidos',[]).find(x=>x.numero===n);if(!p)return;p.status++;salvar('ae_pedidos',ler('ae_pedidos',[]));iniciarPedidos();};
-const enviarContato=e=>{e.preventDefault();const f=e.target;f.classList.add('was-validated');if(!f.checkValidity())return;const msg=ler('ae_mensagens',[]);msg.push({nome:$('#contatoNome').value,email:$('#contatoEmail').value,assunto:$('#contatoAssunto').value,mensagem:$('#contatoMensagem').value,data:new Date().toISOString()});salvar('ae_mensagens',msg);f.reset();f.classList.remove('was-validated');$('#alertaContato').innerHTML='<div class="alert alert-success">Mensagem enviada! Responderemos pelo e-mail informado.</div>';};
-const filtrarRegras=(tipo,btn)=>{$$('.filtros-regra .btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');$$('#tabelaRegras tbody tr').forEach(l=>l.hidden=tipo!=='todos'&&l.dataset.tipo!==tipo);};
-const paginas={home:iniciarHome,catalogo:()=>iniciarCatalogo('veiculo'),acessorios:()=>iniciarCatalogo('acessorio'),produto:iniciarProduto,carrinho:desenharCarrinho,cadastro:iniciarCadastro,login:iniciarLogin,pedidos:iniciarPedidos};
-document.documentElement.setAttribute('data-bs-theme',ler('ae_tema','light')==='dark'?'dark':'light');atualizarContador();mostrarSessao();$$('.ano-atual').forEach(a=>a.textContent=new Date().getFullYear());const init=paginas[document.body.dataset.pagina];if(init)init();
+const moeda = v => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+const ler = (c, p) => JSON.parse(localStorage.getItem(c)) ?? p;
+const salvar = (c, v) => localStorage.setItem(c, JSON.stringify(v));
+
+const estoqueProduto = p => {
+  const est = ler("estoque", {});
+  return Number.isInteger(est[p.id]) && est[p.id] >= 0 ? est[p.id] : p.estoque;
+};
+
+function atualizarContador() {
+  const total = ler("carrinho", []).reduce((s, i) => s + i.qtd, 0);
+  document.querySelectorAll(".qtd-carrinho").forEach(el => el.textContent = total);
+}
+
+function adicionarCarrinho(id) {
+  const p = PRODUTOS.find(item => item.id === id);
+  if (!p) return;
+  const estoque = estoqueProduto(p);
+  const carrinho = ler("carrinho", []);
+  const item = carrinho.find(i => i.id === id);
+
+  if (item) {
+    if (item.qtd >= estoque) return alert("Estoque limite atingido.");
+    item.qtd++;
+  } else {
+    if (estoque < 1) return alert("Produto esgotado.");
+    carrinho.push({ id: p.id, nome: p.nome, preco: p.preco, qtd: 1 });
+  }
+  salvar("carrinho", carrinho);
+  atualizarContador();
+  alert(`${p.nome} adicionado!`);
+}
+
+function removerItem(id) {
+  salvar("carrinho", ler("carrinho", []).filter(i => i.id !== id));
+  atualizarContador();
+  iniciarCarrinho();
+}
+
+function mostrarMenuUsuario() {
+  const u = ler("usuarioLogado", null);
+  const area = document.getElementById("areaUsuario");
+  if (!area) return;
+  area.innerHTML = u ? `Olá, ${u.nome.split(" ")[0]} | <a href="pedidos.html">Pedidos</a> | <a href="#" onclick="localStorage.removeItem('usuarioLogado');location.href='index.html'">Sair</a>` : `<a href="login.html">Entrar</a>`;
+}
+
+function iniciarHome() {
+  const box = document.getElementById("destaques");
+  if (!box) return;
+  box.innerHTML = [PRODUTOS[7], PRODUTOS[0], PRODUTOS[4]].map(p => `
+    <div class="card">
+      <img src="${p.imagem}" alt="${p.nome}">
+      <h3>${p.nome}</h3>
+      <p class="preco">${moeda(p.preco)}</p>
+      <a href="produto.html?id=${p.id}" class="btn">Ver</a>
+    </div>
+  `).join("");
+}
+
+function iniciarLista(tipo) {
+  const box = document.getElementById("listaProdutos");
+  const select = document.getElementById("filtroCategoria");
+  const busca = document.getElementById("filtroBusca");
+  if (!box) return;
+
+  CATEGORIAS.filter(c => c.tipo === tipo).forEach(c => select.innerHTML += `<option value="${c.id}">${c.nome}</option>`);
+
+  const renderizar = () => {
+    const termo = busca.value.toLowerCase();
+    const filtrados = PRODUTOS.filter(p => CATEGORIAS.find(c => c.id === p.categoria).tipo === tipo && (select.value === "todas" || p.categoria === select.value) && p.nome.toLowerCase().includes(termo));
+    box.innerHTML = filtrados.length ? filtrados.map(p => `
+      <div class="card">
+        <img src="${p.imagem}" alt="${p.nome}">
+        <h3>${p.nome}</h3>
+        <p class="preco">${moeda(p.preco)}</p>
+        <button class="btn" onclick="adicionarCarrinho(${p.id})">Adicionar</button>
+      </div>
+    `).join("") : "<p>Nenhum produto encontrado.</p>";
+  };
+
+  busca.addEventListener("input", renderizar);
+  select.addEventListener("change", renderizar);
+  renderizar();
+}
+
+function iniciarProduto() {
+  const box = document.getElementById("detalheProduto");
+  if (!box) return;
+  const p = PRODUTOS.find(item => item.id === Number(new URLSearchParams(location.search).get("id")));
+  if (!p) return box.innerHTML = "<p>Não encontrado.</p>";
+  box.innerHTML = `<div><h1>${p.nome}</h1><p>${moeda(p.preco)}</p><button class="btn" onclick="adicionarCarrinho(${p.id})">Adicionar</button></div>`;
+}
+
+function iniciarCarrinho() {
+  const box = document.getElementById("areaCarrinho");
+  if (!box) return;
+  const carrinho = ler("carrinho", []);
+  if (!carrinho.length) return box.innerHTML = `
+    <div class="carrinho-vazio">
+      <h2>Seu carrinho está vazio</h2>
+      <p>Adicione produtos para continuar sua compra.</p>
+      <a class="btn" href="veiculo.html">Ver produtos</a>
+    </div>
+  `;
+
+  const total = carrinho.reduce((s, i) => s + i.preco * i.qtd, 0);
+  const quantidade = carrinho.reduce((s, i) => s + i.qtd, 0);
+
+  box.innerHTML = `
+    <div class="carrinho-layout">
+      <section class="carrinho-itens">
+        <h2>Produtos selecionados</h2>
+        ${carrinho.map(i => `
+          <article class="carrinho-item">
+            <div class="carrinho-produto">
+              <h3>${i.nome}</h3>
+              <p>${i.qtd} × ${moeda(i.preco)}</p>
+            </div>
+            <div class="carrinho-acoes">
+              <strong>${moeda(i.preco * i.qtd)}</strong>
+              <button class="btn btn-escuro" onclick="removerItem(${i.id})">Remover</button>
+            </div>
+          </article>
+        `).join("")}
+      </section>
+
+      <aside class="resumo-carrinho">
+        <h2>Resumo da compra</h2>
+        <p>${quantidade} item(ns) no carrinho</p>
+        <p class="carrinho-total"><span>Total</span><strong>${moeda(total)}</strong></p>
+        <p class="carrinho-retirada">Retirada presencial na loja física em Curitiba.</p>
+        <button class="btn" onclick="finalizarPedido()">Finalizar compra</button>
+      </aside>
+    </div>
+  `;
+}
+
+function finalizarPedido() {
+  const u = ler("usuarioLogado", null);
+  if (!u) return location.href = "login.html";
+  const carrinho = ler("carrinho", []);
+  if (!carrinho.length) return;
+  const pedidos = ler("pedidos", []);
+  pedidos.push({ numero: 1001 + pedidos.length, email: u.email, total: carrinho.reduce((s, i) => s + i.preco * i.qtd, 0) });
+  salvar("pedidos", pedidos);
+  salvar("carrinho", []);
+  location.href = "pedidos.html";
+}
+
+function autenticar(e, tipo) {
+  e.preventDefault();
+  const email = document.getElementById(tipo === 'login' ? 'emailLogin' : 'email').value.trim().toLowerCase();
+  const senha = document.getElementById(tipo === 'login' ? 'senhaLogin' : 'senha').value;
+  let clientes = ler("clientes", []);
+
+  if (tipo === 'cadastro') {
+    if (clientes.some(c => c.email === email)) return alert("Já cadastrado.");
+    const novo = { nome: document.getElementById('nome').value, email, senha };
+    clientes.push(novo);
+    salvar("clientes", clientes);
+    salvar("usuarioLogado", novo);
+  } else {
+    const usuario = clientes.find(c => c.email === email && c.senha === senha);
+    if (!usuario) return alert("Dados incorretos.");
+    salvar("usuarioLogado", usuario);
+  }
+  location.href = "index.html";
+}
+
+function iniciarPedidos() {
+  const box = document.getElementById("listaPedidos");
+  if (!box) return;
+  const u = ler("usuarioLogado", null);
+  if (!u) return box.innerHTML = "Faça login.";
+  box.innerHTML = ler("pedidos", []).filter(p => p.email === u.email).map(p => `<div>Pedido #${p.numero} - ${moeda(p.total)}</div>`).join("");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  atualizarContador();
+  mostrarMenuUsuario();
+  ({ home: iniciarHome, catalogo: () => iniciarLista("veiculo"), acessorios: () => iniciarLista("acessorio"), produto: iniciarProduto, carrinho: iniciarCarrinho, pedidos: iniciarPedidos })[document.body.dataset.pagina]?.();
+});

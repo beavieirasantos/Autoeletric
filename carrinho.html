@@ -2,145 +2,48 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="./img/logo.png" type="image/x-icon">
   <title>Carrinho | Autoeletric</title>
-  <link rel="icon" href="img/logo.svg">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-pagina="carrinho">
   <header>
-    <div class="cabecalho-topo">
-      <div class="container-principal">
-        <a class="marca" href="index.html"><img src="img/logo.svg" alt="Logo"><span>Auto<em>eletric</em></span></a>
-        <span class="slogan">Mobilidade elétrica urbana, retirada em Curitiba</span>
-      </div>
+    <div class="container topo">
+      <a class="marca" href="index.html">Auto<span>eletric</span></a>
+      <nav>
+        <a href="index.html">Início</a>
+        <a href="veiculo.html">Veículos</a>
+        <a href="acessorios.html">Acessórios</a>
+        <a href="retirada.html">Retirada</a>
+        <a href="regras.html">Regras</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="https://www.detran.pr.gov.br/Pagina/Legislacao" target="_blank" rel="noopener noreferrer">Legislação Detran-PR ↗</a>
+        <a href="contato.html">Contato</a>
+        <a href="login.html">Entrar</a>
+        <a class="ativo" href="carrinho.html">Carrinho (<span class="qtd-carrinho">0</span>)</a>
+      </nav>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-dark barra-menu">
-      <div class="container-principal">
-        <button class="navbar-toggler ms-auto my-2" data-bs-toggle="collapse" data-bs-target="#menu" aria-label="Abrir menu">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="menu">
-          <div class="navbar-nav me-auto">
-            <a class="nav-link" href="index.html">Início</a>
-            <a class="nav-link" href="catalogo.html">Veículos</a>
-            <a class="nav-link" href="acessorios.html">Acessórios</a>
-            <a class="nav-link" href="retirada.html">Retirada</a>
-            <a class="nav-link" href="regulamentacao.html">Regras</a>
-            <a class="nav-link" href="sobre.html">Sobre</a>
-            <a class="nav-link" href="contato.html">Contato</a>
-            <a class="nav-link" href="https://www.detran.pr.gov.br" target="_blank">Detran-PR ↗</a>
-          </div>
-          <div class="navbar-nav align-items-lg-center">
-            <span id="navSessao"></span>
-            <a class="nav-link" href="login.html">Entrar</a>
-            <a class="nav-link active" href="carrinho.html">Carrinho <span class="contador-carrinho" hidden>0</span></a>
-          </div>
-        </div>
-      </div>
-    </nav>
   </header>
 
   <main>
-    <section class="cabecalho-pagina">
-      <div class="container-principal">
-        <h1>Seu carrinho</h1>
-        <p>Revise produtos e quantidades. Para finalizar é preciso estar logado.</p>
+    <section class="banner">
+      <div class="container">
+        <h1>Seu Carrinho</h1>
+        <p>Retirada presencial na loja física em Curitiba.</p>
       </div>
     </section>
 
-    <section class="secao">
-      <div class="container-principal">
-        <div class="row g-4 align-items-start">
-          <div class="col-lg-8">
-            <div id="carrinhoVazio" class="alert alert-secondary mb-0" hidden>
-              Seu carrinho está vazio. Adicione um produto para começar sua compra:
-              <a class="alert-link" href="catalogo.html">veículos</a> ou
-              <a class="alert-link" href="acessorios.html">acessórios</a>.
-            </div>
-            <div id="carrinhoItens" class="table-responsive" hidden>
-              <table class="table align-middle">
-                <thead>
-                  <tr><th>Produto</th><th>Quantidade</th><th class="text-end">Subtotal</th><th></th></tr>
-                </thead>
-                <tbody id="linhasCarrinho"></tbody>
-              </table>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="caixa-resumo">
-              <p class="mb-1">Total</p>
-              <p><strong id="resumoCarrinho">R$ 0,00</strong></p>
-              <div class="alert alert-light small">Retirada presencial na loja de Curitiba. Não há entrega.</div>
-              <button id="botaoFinalizarCompra" class="btn btn-lima btn-lg w-100" onclick="abrirResumo()" hidden>Finalizar compra</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Janela (modal do Bootstrap) com o resumo da compra -->
-        <div class="modal fade" id="modalResumo" tabindex="-1">
-          <div class="modal-dialog modal-dialog-centered">
-            <form class="modal-content" onsubmit="confirmarPedido(event)">
-              <div class="modal-header">
-                <h2 class="modal-title h5">Resumo da compra</h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-              </div>
-              <div class="modal-body">
-                <p><strong>Comprador:</strong> <span id="modalCliente"></span></p>
-                <ul class="list-group mb-3" id="modalItens"></ul>
-                <p class="d-flex justify-content-between fs-5"><span>Total</span><strong id="modalTotal"></strong></p>
-                <label class="form-label" for="formaPagamento">Forma de pagamento</label>
-                <select class="form-select" id="formaPagamento" required>
-                  <option value="">Selecione</option>
-                  <option>Pix</option>
-                  <option>Cartão de crédito</option>
-                  <option>Boleto</option>
-                </select>
-                <p class="small text-secondary mt-3 mb-0">O prazo de preparo é de até 3 dias úteis após a aprovação do pagamento.</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Voltar</button>
-                <button type="submit" class="btn btn-lima">Confirmar pedido</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
+    <section class="secao container" id="areaCarrinho"></section>
   </main>
 
-  <footer class="rodape">
-    <div class="container-principal rodape-grade">
-      <div>
-        <a class="marca" href="index.html"><img src="img/logo.svg" alt="Logo"><span>Auto<em>eletric</em></span></a>
-        <p>Loja virtual de veículos autopropelidos elétricos e acessórios. Compra online, retirada presencial na loja física em Curitiba/PR.</p>
-      </div>
-      <nav>
-        <h2>Loja</h2>
-        <a href="catalogo.html">Veículos</a>
-        <a href="acessorios.html">Acessórios</a>
-        <a href="carrinho.html">Carrinho</a>
-      </nav>
-      <nav>
-        <h2>Ajuda</h2>
-        <a href="retirada.html">Como retirar</a>
-        <a href="regulamentacao.html">Regras de circulação</a>
-        <a href="contato.html">Contato</a>
-      </nav>
-    </div>
-    <div class="rodape-base">
-      <div class="container-principal">
-        <span>© <span class="ano-atual">2026</span> Autoeletric.</span>
-        <span><a href="sobre.html">Sobre</a> · <a href="https://www.gov.br/transportes/pt-br" target="_blank">Ministério dos Transportes ↗</a></span>
-      </div>
+  <footer>
+    <div class="container">
+      <p>© 2026 Autoeletric - Curitiba/PR</p>
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/dados.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
-
-
